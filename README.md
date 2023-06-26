@@ -14,6 +14,7 @@ Warning! Use only absolute path! Relative path will not work at all!
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
 · tilte can't accsess to folders. Please use it in one folder with all files.  
+· tilte tries to rename EVERYTHING in your folder, so try to not store photos and videos with music.
   
 WIP  
 
