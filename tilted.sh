@@ -1,7 +1,14 @@
 #!/bin/bash
 
 IFS=$'\n'
-dir="$1"
+err=0;total=0;renamed=0
+ext=mp3
+
+if [ -z "$1" ]; then
+echo "You need absolute path to continue!"; exit
+else
+way="$1"
+fi
 
 Green='\033[0;32m'
 BIRed='\033[1;91m'
@@ -13,7 +20,7 @@ function exitscr(){
  echo "Tilte $VER - 2022-$(date +%Y). Russanandres"
  date
  exit
-}
+ }
 
 # Okay, so "reduction - meaning"
 # ar - artist
@@ -29,25 +36,39 @@ function exitscr(){
 
 
 clear
-echo -e "${Green}Hello. Our mission is ${BIBlue}$dir ${Green}?
+echo -e "${Green}Hello. Our mission is ${BIBlue}$way ${Green}?
 
 ${BIRed}(Yes/No?)${No_color}"
 read ch
 case "$ch" in
 "Yes"|"yes" )
 
+function long(){
 clear
-for file in $dir/*.mp3
-do
+for file in $way/* ; do
+ext=${file#*.}
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
-title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
-echo -e "${Green} Processing $file. Renamed to $artist - $title.mp3${No_color}"
-mv $file $dir/"$artist - $title.mp3"
+title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file); s=$?
+echo -e "${Green} Processing $file. Renamed to${BIBlue} $artist - $title.$ext${No_color}"
+if [ "$s" == 0 ]; then mv "$file" $way/"$artist - $title.$ext"; fi
+if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
+let total=$total+1
 done
-;;
+}
 
+function fast(){
+renamed=X;err=X
+for file in $way/* ; do
+ext=${file#*.};mv "$file" $way/"$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file) - $(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file).$ext"
+let total=$total+1
+done
+}
+
+if [ "$2" == "-f" ] || [ "$2" == "--no-verbose" ]; then fast; else long; fi
+
+;;
 * ) exitscr;;
 esac
-echo "Rename Complete!"
-echo "Exiting..."
+echo -e "
+Total tracks: ${BIRed}$total${No_color} | Total renamed: ${BIRed}$renamed${No_color} | Total errors: ${BIRed}$err${No_color}"
 exit
