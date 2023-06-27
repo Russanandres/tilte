@@ -19,7 +19,7 @@ Warning! Use only absolute path! Relative path will not work at all!
 WIP  
 
 ## Tests results
-| Input data  | Normal mode time | Silen mode time |
+| Input data  | Normal mode time | Silent mode time |
 | ----------- | ---------------- | --------------- |
 | 498 files   | 44.8 seconds     | 43.8 seconds    |
 | 3820 files  | 5m 38 sec        | 5m 27 sec       |
