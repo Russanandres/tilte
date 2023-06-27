@@ -1,5 +1,5 @@
-<sub>Tilte working with music files</sub>
-![Then the music beat up](https://github.com/Russanandres/tilte/blob/4cdbd0213f7ccdae84d919253d7c4dc70f22812b/tilte%20in%20work.png)
+<sub>Tilte working with music files (with bugs of course)</sub>
+![Then the music beat up](https://github.com/Russanandres/tilte/blob/d5e17030529a01cc31d00a940d46af99bd624e3d/image.png)
 
 ## Depencies
 · ffmpeg (ffprobe is part of ffmpeg)  
