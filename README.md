@@ -4,7 +4,7 @@
 ## Depencies
 · ffmpeg (ffprobe is part of ffmpeg)  
 · bash  
-· mp3 files  
+· music files in one directory  
 
 ## Usage
 Run script with path after like `bash tilte.sh /home/$USER/music/`  
