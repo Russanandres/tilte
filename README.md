@@ -8,7 +8,7 @@
 
 ## Usage
 Run script with path after like `bash tilte.sh /home/$USER/music/`  
-Tilte automaticaly renames all your mp3 files in directory by `$Artist - $Title.mp3`  
+Tilte automaticaly renames all your music files in directory by `$Artist - $Title.mp3`  
 Warning! Use only absolute path! Relative path will not work at all!  
 
 ## Known bugs
