@@ -20,7 +20,8 @@ WIP
 
 ## Tests results
 | Input data  | Normal mode time | Silent mode time |
-| ----------- | ---------------- | --------------- |
-| 498 files   | 44.8 seconds     | 43.8 seconds    |
-| 3820 files  | 5m 38 sec        | 5m 27 sec       |
+| ----------- | ---------------- | ---------------- |
+| 498 files   | 44.8 seconds     | 43.8 seconds     |
+| 3820 files  | 5m 38 sec        | 5m 27 sec        |
+| 15252 files | 26m 55 sec       | 27m 20 sec (WTH) |
  
