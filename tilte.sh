@@ -44,8 +44,27 @@ ext=${file#*.}
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
 title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
 echo -e "${Green} Processing $file. Renamed to${BIBlue} $artist - $title.$ext${No_color}"
-if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]]; then mv "$file" "$way"/"$artist - $title.$ext"; fi
+if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]]; then mv -f "$file" "$way"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
+let total=$total+1
+done
+}
+
+
+function verbose(){ clear
+for file in $way/* ; do
+echo -e "${Green}------------------------------------------------------${No_color}"
+echo -e "Processing${BIBlue} $file${No_color}"
+unset title; unset artist
+ext=${file#*.}
+echo -e "Extension is:${BIBlue} $ext${No_color}"
+artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
+echo -e "Artist is:${BIBlue} $artist${No_color}"
+title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
+echo -e "Title is:${BIBlue} $title${No_color}"
+if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]]; then mv -v -f "$file" "$way"/"$artist - $title.$ext"; fi
+if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
+echo -e "Renamed to${BIBlue} $artist - $title.$ext${No_color}"
 let total=$total+1
 done
 }
@@ -58,7 +77,8 @@ let total=$total+1
 done
 }
 
-if [ "$2" == "-f" ] || [ "$2" == "--no-verbose" ]; then fast; else long; fi
+if [ "$2" == "-f" ] || [ "$2" == "--no-verbose" ]; then fast
+elif [ "$2" == "-v" ] || [ "$2" == "--verbose" ]; then verbose; else long; fi
 
 ;;
 * ) exitscr;;
