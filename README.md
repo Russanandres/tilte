@@ -1,6 +1,10 @@
 <sub>Tilte working with music files (with bugs of course)</sub>
 ![Then the music beat up](https://github.com/Russanandres/tilte/blob/d5e17030529a01cc31d00a940d46af99bd624e3d/image.png)
 
+## What is that?
+This script trying to receive ID3v* tags of artist and song name and renames file to `$Artist - $Title.*`  pattern.  
+Title tries to rename **ALL** your music files in one directory and sadly can't move through folders at now.
+
 ## Depencies
 · ffmpeg (ffprobe is part of ffmpeg)  
 · bash  
@@ -8,7 +12,6 @@
 
 ## Usage
 Run script with path after, like `bash tilte.sh /home/$USER/Music/`  
-Tilte automaticaly renames all your music files in directory as `$Artist - $Title.flac`  
 To use tilte in current directory, run `bash tilte.sh .`  
 
 ## Known bugs
