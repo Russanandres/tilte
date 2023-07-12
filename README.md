@@ -13,6 +13,7 @@ Tilte tries to rename **ALL** your music files in one directory and sadly can't 
 ## Usage
 Run script with path after, like `bash tilte.sh /home/$USER/Music/`  
 To use tilte in current directory, run `bash tilte.sh .`  
+To show all log while running, run script with `-v` or `--verbose` in 2nd argument.  
 
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
