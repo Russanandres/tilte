@@ -3,7 +3,7 @@
 
 ## What is that?
 This script trying to receive ID3v* tags of artist and song name and renames file to `$Artist - $Title.*`  pattern.  
-Title tries to rename **ALL** your music files in one directory and sadly can't move through folders at now.
+Tilte tries to rename **ALL** your music files in one directory and sadly can't move through folders at now.
 
 ## Depencies
 · ffmpeg (ffprobe is part of ffmpeg)  
@@ -16,7 +16,7 @@ To use tilte in current directory, run `bash tilte.sh .`
 
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
-· tilte can't accsess to folders. Please use it in one folder with all files.  
+· tilte can't accsess to folders. Please use it in single folder with all your music files or rerun for every folder.  
 · tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.
   
 WIP  
