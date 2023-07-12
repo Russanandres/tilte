@@ -40,7 +40,7 @@ case "$ch" in
 function long(){ clear
 for file in $way/* ; do
 unset title; unset artist
-ext=${file#*.}
+ext=${file##*.}
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
 title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
 echo -e "${Green} Processing $file. Renamed to${BIBlue} $artist - $title.$ext${No_color}"
@@ -56,7 +56,7 @@ for file in $way/* ; do
 echo -e "${Green}------------------------------------------------------${No_color}"
 echo -e "Processing${BIBlue} $file${No_color}"
 unset title; unset artist
-ext=${file#*.}
+ext=${file##*.}
 echo -e "Extension is:${BIBlue} $ext${No_color}"
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
 echo -e "Artist is:${BIBlue} $artist${No_color}"
@@ -72,7 +72,7 @@ done
 function fast(){
 renamed=X;err=X
 for file in $way/* ; do
-ext=${file#*.};mv "$file" $way/"$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file) - $(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file).$ext"
+ext=${file##*.};mv "$file" $way/"$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file) - $(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file).$ext"
 let total=$total+1
 done
 }
