@@ -7,14 +7,14 @@
 · music files in one directory  
 
 ## Usage
-Run script with path after, like `bash tilte.sh /home/$USER/music/`  
-Tilte automaticaly renames all your music files in directory as `$Artist - $Title.mp3`  
+Run script with path after, like `bash tilte.sh /home/$USER/Music/`  
+Tilte automaticaly renames all your music files in directory as `$Artist - $Title.flac`  
 Warning! Use only absolute path! Relative path will not work at all!  
 
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
 · tilte can't accsess to folders. Please use it in one folder with all files.  
-· tilte tries to rename EVERYTHING in your folder, so try to not store photos and videos with music.
+· tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.
   
 WIP  
 
