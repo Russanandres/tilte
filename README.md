@@ -9,7 +9,7 @@
 ## Usage
 Run script with path after, like `bash tilte.sh /home/$USER/Music/`  
 Tilte automaticaly renames all your music files in directory as `$Artist - $Title.flac`  
-Warning! Use only absolute path! Relative path will not work at all!  
+To use tilte in current directory, run `bash tilte.sh .`  
 
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
