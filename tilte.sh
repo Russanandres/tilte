@@ -6,7 +6,7 @@ ext=mp3
 # source $USER/.config/tilte.conf
 
 if [ -z $1 ]; then echo "Nothing to do"; exit; else way="$1";fi
-way=$(readlink -f $1)
+way=$(readlink -f $1 &> /dev/null)
 
 Green='\033[0;32m'
 BIRed='\033[1;91m'
