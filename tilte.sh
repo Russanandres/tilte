@@ -6,6 +6,7 @@ ext=mp3
 # source $USER/.config/tilte.conf
 
 if [ -z $1 ]; then echo "Nothing to do"; exit; else way="$1";fi
+way=$(readlink -f $1)
 
 Green='\033[0;32m'
 BIRed='\033[1;91m'
@@ -20,19 +21,34 @@ function exitscr(){ clear;echo "Tilte. By Russanandres";date;exit
 # ti - title
 # al - album
 # ye - album year
-# an - album number
+# an - song number
 # sn - side number
 
 
+function helpscr(){
+echo "tilte.sh. By Russanandres.
+Usage: tilte.sh [path] [option]
+Availiable options:
+    -v | --verbose      >>  Show full process log
+    -f | --no-verbose   >>  Show minimal log
+    -h | --help         >>  Show help manual"; exit
+ }
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --verbose) verbose="1";;
+        -f | -s | --no-verbose | --fast | --silent ) fast="1";;
+        -h | --help ) helpscr;;
+    esac
+    shift
+done
 
-
-way=$(readlink -f $1)
 
 clear
 echo -e "${Green}Hello. Our mission is ${BIBlue}$way ${Green}?
 
 ${BIRed}(Yes/No?)${No_color}"
 
+trap "exitscr" SIGINT
 read ch
 case "$ch" in
 "Yes"|"yes"|"Y"|"y" )
@@ -47,6 +63,7 @@ echo -e "${Green} Processing $file. Renamed to${BIBlue} $artist - $title.$ext${N
 if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]]; then mv -f "$file" "$way"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
 let total=$total+1
+trap "break" SIGINT
 done
 }
 
@@ -66,6 +83,7 @@ if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]]; then mv -v 
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
 echo -e "Renamed to${BIBlue} $artist - $title.$ext${No_color}"
 let total=$total+1
+trap "echo; break" SIGINT
 done
 }
 
@@ -74,11 +92,12 @@ renamed=X;err=X
 for file in $way/* ; do
 ext=${file##*.};mv "$file" $way/"$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file) - $(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file).$ext"
 let total=$total+1
+trap "break" SIGINT
 done
 }
 
-if [ "$2" == "-f" ] || [ "$2" == "--no-verbose" ]; then fast
-elif [ "$2" == "-v" ] || [ "$2" == "--verbose" ]; then verbose; else long; fi
+if [ "$fast" == "1" ]; then fast
+elif [ "$verbose" == "1" ]; then verbose; else long; fi
 
 ;;
 * ) exitscr;;
