@@ -16,11 +16,10 @@ To check help manual, run `bash tilte.sh -h`
 To use tilte in current directory, run `bash tilte.sh .`  
 To show all log while running, run script with `-v` or `--verbose`.  
 To simulate all process, run tilte with `-s` or `--simulate`.  
-You can run **EXPEREMENTAL** recurse renaming by `-r` argument, all your files will be moved in start folder.
+You can run **EXPEREMENTAL** recurse renaming by `-r` argument.
 
 ## Known bugs
 · mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
-· ~~tilte can't accsess to folders. Please use it in single folder with all your music files or rerun for every folder.~~  
 · tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.
 
 ## Tests results
