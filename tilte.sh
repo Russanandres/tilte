@@ -98,16 +98,18 @@ done
 
 function rec(){ clear
 for file in $(find $way); do
+path=$(echo $file | sed 's|\(.*\)/.*|\1|')
 echo -e "${Green}------------------------------------------------------${No_color}"
 echo -e "Processing${BIBlue} $file${No_color}"
 unset title; unset artist
+echo -e "Path is:${BIBlue} $path${No_color}"
 ext=${file##*.}
 echo -e "Extension is:${BIBlue} $ext${No_color}"
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
 echo -e "Artist is:${BIBlue} $artist${No_color}"
 title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
 echo -e "Title is:${BIBlue} $title${No_color}"
-if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -v -f "$file" "$way"/"$artist - $title.$ext"; fi
+if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -v -f "$file" "$path"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
 echo -e "Renamed to${BIBlue} $artist - $title.$ext${No_color}"
 let total=$total+1
