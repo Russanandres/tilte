@@ -18,9 +18,12 @@ To show all log while running, run script with `-v` or `--verbose`.
 To simulate all process, run tilte with `-s` or `--simulate`.  
 You can run **EXPEREMENTAL** recurse renaming by `-r` argument.
 
+## Notes
+· Silent way can't rename files with `/` or `\` in artist or title. Other ways can.  
+· Tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.  
+
 ## Known bugs
-· mv cannot rename files with `/` or `\` in name, so tilte cannot rename them.  
-· tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.
+Find by yourself and tell! :slightly_smiling_face:
 
 ## Tests results
 | Input data  | Normal mode time | Silent mode time |
