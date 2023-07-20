@@ -66,8 +66,8 @@ function long(){ clear
 for file in $way/* ; do
 unset title; unset artist
 ext=${file##*.}
-artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
-title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
+artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file); artist=${artist////-}
+title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file); title=${title////-}
 echo -e "${Green} Processing $file. Renamed to${BIBlue} $artist - $title.$ext${No_color}"
 if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -f "$file" "$way"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
@@ -87,8 +87,10 @@ unset title; unset artist
 ext=${file##*.}
 echo -e "Extension is:${BIBlue} $ext${No_color}"
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
+artist=${artist////-}
 echo -e "Artist is:${BIBlue} $artist${No_color}"
 title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
+title=${title////-}
 echo -e "Title is:${BIBlue} $title${No_color}"
 if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -v -f "$file" "$way"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
@@ -111,8 +113,10 @@ echo -e "Path is:${BIBlue} $path${No_color}"
 ext=${file##*.}
 echo -e "Extension is:${BIBlue} $ext${No_color}"
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file)
+artist=${artist////-}
 echo -e "Artist is:${BIBlue} $artist${No_color}"
 title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file)
+title=${title////-}
 echo -e "Title is:${BIBlue} $title${No_color}"
 if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -v -f "$file" "$path"/"$artist - $title.$ext"; fi
 if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
