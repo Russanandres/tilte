@@ -23,7 +23,7 @@ You can run **EXPEREMENTAL** recurse renaming by `-r` argument.
 · Tilte tries to rename photos and videos in your folder, so try to not store other type of media with music.  
 
 ## Known bugs
-Find by yourself and tell! :slightly_smiling_face:
+You tell me! :slightly_smiling_face:  
 
 ## Tests results
 | Input data  | Normal mode time | Silent mode time |
