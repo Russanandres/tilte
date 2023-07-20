@@ -28,6 +28,7 @@ function helpscr(){
 echo "tilte.sh. By Russanandres.
 Usage: tilte.sh [path] [option]
 Availiable options:
+    -q | --quiet        >>  Skip confirm for target
     -v | --verbose      >>  Show more output
     -f | --no-verbose   >>  Show less output
     -s | --simulate     >>  Simulate the process
@@ -37,6 +38,7 @@ Availiable options:
 
 while [ "$1" != "" ]; do
     case $1 in
+        -q | --quiet) quiet=1;;
         -v | --verbose) verbose="1";;
         -f | --no-verbose | --fast | --silent ) fast="1";;
         -s | --simulate ) sim="1";;
@@ -47,13 +49,16 @@ while [ "$1" != "" ]; do
 done
 
 
+ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $way
+if [ "$?" == 0 ]; then renfile=1; fi
+
 clear
 echo -e "${Green}Hello. Our mission is ${BIBlue}$way ${Green}?
 
 ${BIRed}(Yes/No?)${No_color}"
 
 trap "exitscr" SIGINT
-read ch
+if [ "$quiet" == 1 ]; then read ch <<< "Yes"; else read ch; fi
 case "$ch" in
 "Yes"|"yes"|"Y"|"y" )
 
@@ -129,7 +134,27 @@ trap "echo;break" SIGINT
 done
 }
 
-if [ "$fast" == "1" ]; then fast
+
+
+function recfile(){ clear
+path=$(echo $way | sed 's|\(.*\)/.*|\1|')
+echo -e "Processing${BIBlue} $way${No_color}"
+unset title; unset artist
+ext=${way##*.}
+echo -e "Extension is:${BIBlue} $ext${No_color}"
+artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $way)
+echo -e "Artist is:${BIBlue} $artist${No_color}"
+title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $way)
+echo -e "Title is:${BIBlue} $title${No_color}"
+if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -v -f "$way" "$path"/"$artist - $title.$ext"; fi
+if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
+echo -e "Renamed to${BIBlue} $artist - $title.$ext${No_color}"
+let total=$total+1
+}
+
+
+if [ "$renfile" == "1" ]; then recfile
+elif [ "$fast" == "1" ]; then fast
 elif [ "$rec" == "1" ]; then rec
 elif [ "$verbose" == "1" ]; then verbose
 else long
