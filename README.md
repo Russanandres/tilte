@@ -11,11 +11,11 @@ Tilte tries to rename **ALL** your music files in one directory and sadly can't 
 · music files in one directory  
 
 ## Usage
-***1st argument is always your path***, so run script as `bash tilte.sh /home/$USER/Music/`.  
+***1st argument is always your path***, so run script as `bash tilte.sh /home/$USER/Music/`  
 To check help manual, run `bash tilte.sh -h`  
 To use tilte in current directory, run `bash tilte.sh .`  
-To show all log while running, run script with `-v` or `--verbose`.  
-To simulate all process, run tilte with `-s` or `--simulate`.  
+To show all log while running, run script with `-v` or `--verbose`  
+To simulate all process, run tilte with `-s` or `--simulate`  
 You can run **EXPEREMENTAL** recurse renaming by `-r` argument.
 
 ## Notes
