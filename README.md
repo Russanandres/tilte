@@ -1,4 +1,4 @@
-<sub>Tilte working with music files (with bugs of course)</sub>
+<sub>Tilte working with music files</sub>
 ![Then the music beat up](https://github.com/Russanandres/tilte/blob/2ba9be26262ad658aed7e9cf78594b80aa94f150/image.png)
 
 ## What is that?
