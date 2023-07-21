@@ -33,7 +33,10 @@ Availiable options:
     -f | --no-verbose   >>  Show less output
     -s | --simulate     >>  Simulate the process
     -h | --help         >>  Show help manual
-    -r | --recurse      >>  Rename through subdirectories"; exit
+    -r | --recurse      >>  Rename through subdirectories
+
+Additional options:
+    -  | --             >> "; exit
 }
 
 while [ "$1" != "" ]; do
@@ -44,6 +47,7 @@ while [ "$1" != "" ]; do
         -s | --simulate ) sim="1";;
         -h | --help ) helpscr;;
         -r | --recurse ) rec="1";;
+        -E | --systemd ) systemd="1";;
     esac
     shift
 done
@@ -103,6 +107,7 @@ done
 
 
 
+
 function rec(){ clear
 for file in $(find $way); do
 path=$(echo $file | sed 's|\(.*\)/.*|\1|')
@@ -129,6 +134,7 @@ done
 
 
 
+
 function fast(){
 renamed=X;err=X
 for file in $way/* ; do
@@ -140,10 +146,12 @@ done
 
 
 
-function recfile(){ clear
+
+function renfile(){ clear
 path=$(echo $way | sed 's|\(.*\)/.*|\1|')
 echo -e "Processing${BIBlue} $way${No_color}"
 unset title; unset artist
+echo -e "Path is:${BIBlue} $path${No_color}"
 ext=${way##*.}
 echo -e "Extension is:${BIBlue} $ext${No_color}"
 artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $way)
@@ -157,10 +165,28 @@ let total=$total+1
 }
 
 
-if [ "$renfile" == "1" ]; then recfile
+
+
+function systmdverbose(){
+for file in $way/* ; do echo -e "         Start processing $file"
+unset title; unset artist;ext=${file##*.}
+echo -e "[  ${Green}OK${No_color}  ] Extracted $ext extension"
+artist=$(ffprobe -loglevel error -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 $file);artist=${artist////-}
+echo -e "[  ${Green}OK${No_color}  ] Extracted $artist as artist"
+title=$(ffprobe -loglevel error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 $file);title=${title////-}
+echo -e "[  ${Green}OK${No_color}  ] Extracted $title as title"
+if [[ ! -z "$title" ]] && [[ ! -z "$artist" ]] && [[ ! -z "$ext" ]] && [ "$sim" == "0" ]; then mv -f "$file" "$way"/"$artist - $title.$ext"; fi
+if [ "$?" == 1 ]; then let err=$err+1; else let renamed=$renamed+1; fi
+echo -e "[  ${Green}OK${No_color}  ] Renamed file to $artist - $title.$ext";let total=$total+1;trap "echo; break" SIGINT;done
+}
+
+
+
+if [ "$renfile" == "1" ]; then renfile
 elif [ "$fast" == "1" ]; then fast
 elif [ "$rec" == "1" ]; then rec
 elif [ "$verbose" == "1" ]; then verbose
+elif [ "$systemd" == "1" ]; then systmdverbose
 else long
 fi
 
