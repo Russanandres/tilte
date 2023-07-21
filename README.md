@@ -1,5 +1,5 @@
 <sub>Tilte working with music files (with bugs of course)</sub>
-![Then the music beat up](https://github.com/Russanandres/tilte/blob/d5e17030529a01cc31d00a940d46af99bd624e3d/image.png)
+![Then the music beat up](https://github.com/Russanandres/tilte/blob/2ba9be26262ad658aed7e9cf78594b80aa94f150/image.png)
 
 ## What is that?
 This script trying to receive ID3v* tags of artist and song name and renames file to `$Artist - $Title.*`  pattern.  
